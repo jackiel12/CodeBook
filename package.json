@@ -1,0 +1,32 @@
+{
+  "name": "solo-project-aug-2019",
+  "version": "1.0.0",
+  "description": "React app that will (hopefully) help to record and keep track of your resources for learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack-dev-server --open&nodemon server/server.js",
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "solo",
+    "project"
+  ],
+  "author": "Jackie Lin",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "webpack": "^4.39.2",
+    "webpack-dev-server": "^3.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "cross-env": "^5.2.0",
+    "webpack-cli": "^3.3.7"
+  }
+}
