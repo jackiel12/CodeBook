@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import reference from './reference.js';
 
 class addReference extends Component {
 
@@ -81,7 +80,7 @@ class addReference extends Component {
         return (
             <div>
                 <h3>Add a Reference</h3>
-                <form onSubmit={this.onSubmit}>
+                <form className='formContainer' onSubmit={this.onSubmit}>
                     <label>
                         Name: 
                         <input type='text' value={this.state.name} onChange={this.onChangeName}/>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import Reference from './reference.js'
+import Reference from './reference.js';
+import '../css/search-reference.css'
 
 class searchReference extends Component {
 

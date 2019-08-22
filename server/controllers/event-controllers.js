@@ -45,11 +45,6 @@ const eventController = {
                 res.json(cursor);
             }
         })
-
-        //query the db using find({tags: {$in: [array of tags]}}
-
-        //return
-
     }
 
 }

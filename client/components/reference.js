@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import '../css/reference.css'
 
 
 class Reference extends Component {
@@ -8,7 +9,7 @@ class Reference extends Component {
 
     render() {
         return(
-            <div>
+            <div className='container'>
                 <label>Name:</label>
                     <div>{this.props.name}</div>
                 <label>Url:</label>
