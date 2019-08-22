@@ -6,14 +6,18 @@ const eventController = {
     createRecord(req, res) {
         console.log('req.body',req.body);
         const reference = new Reference ({
+            name: req.body.name,
             url: req.body.url,
             description: req.body.description,
-            keywords: req.body.keywords
+            tags: req.body.tags
         })
 
         reference.save(function(err, reference) {
-            if(err) res.status(404);
-            res.json(reference);
+            console.log('ello')
+            if(err) { console.log('err',err);
+            res.status(404);}
+            else{res.json(reference);}
+            
         })
     },
     
@@ -23,7 +27,11 @@ const eventController = {
     },
 
     deleteRecord(req, res) {
-
+        //takes a request, finds the data and removes it from the db
+        Reference.findOneAndDelete({url: req.body.url},function(err, reference) {
+            if (err) res.status(500).json({error: err})
+            res.json({sucess: true, msg: `deleted ${reference}`});
+        })
     },
 
     getRecord(req, res) {
