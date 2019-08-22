@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
+import reference from './reference.js';
 
 class addReference extends Component {
 
-    // render() {
-    //     return (
-    //         <p>this is the add reference component</p>
-    //     )
-    // }
     constructor(props) {
         super(props)
 
@@ -60,7 +56,6 @@ class addReference extends Component {
 
         console.log(reference);
 
-        //eventually will add something to connect state to db
         //fetch with type post
         fetch('/data/add',{
             method: 'POST',
@@ -81,6 +76,8 @@ class addReference extends Component {
     }
 
     render() {
+        //create a function here that adds different references to an array to display with returned information from the db
+
         return (
             <div>
                 <h3>Add a Reference</h3>
@@ -110,32 +107,5 @@ class addReference extends Component {
     }
     
 }
+
 export default addReference
-
-
-
-// render() {
-//     return (
-//         <div>
-//             <p>Add a Reference</p>
-//             <form>
-//                 <label>
-//                     Name: 
-//                     <input/>
-//                 </label>
-//                 <label>
-//                     URL: 
-//                     <input/>
-//                 </label>
-//                 <label>
-//                     Description: 
-//                     <input/>
-//                 </label>
-//                 <label>
-//                     Tags: 
-//                     <input/>
-//                 </label>
-//             </form>
-//         </div>
-//     )
-// }

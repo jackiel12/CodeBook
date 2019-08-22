@@ -9,11 +9,10 @@ const eventController = {
             name: req.body.name,
             url: req.body.url,
             description: req.body.description,
-            tags: req.body.tags
+            tags: req.body.tags.split(',')
         })
 
         reference.save(function(err, reference) {
-            console.log('ello')
             if(err) { console.log('err',err);
             res.status(404);}
             else{res.json(reference);}
@@ -34,7 +33,22 @@ const eventController = {
         })
     },
 
-    getRecord(req, res) {
+    //retrieve records by keywords
+    getRecords(req, res, next) {
+        let reqTags = req.params.tags.split(',')
+        let resultArr = [];
+        console.log('req.paramssss',req.params)
+        Reference.find({tags: { $in: reqTags} }, (err, cursor) => {
+            if (err) res.status(404)
+            else {
+                console.log('this is the cursor from find', cursor)
+                res.json(cursor);
+            }
+        })
+
+        //query the db using find({tags: {$in: [array of tags]}}
+
+        //return
 
     }
 

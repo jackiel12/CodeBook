@@ -14,7 +14,7 @@ const ReferenceSchema = new Schema ({
     name: {type: String, required: true},
     url: {type: String, required: true},
     description: {type: String, required: true},
-    tags: {type: String, required: true}
+    tags: {type: Array, required: true}
     //keywords can be a string input. you can trim the spaces and split it into an array yourself
 }, {timestamps: true})
 

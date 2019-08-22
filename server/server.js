@@ -29,7 +29,7 @@ const dataRouter = express.Router();
 dataRouter.post('/add', eventController.createRecord);
 
 //set up route to fetch data by keyword
-// dataRouter.get('/', eventController.getRecord);
+dataRouter.get('/search/:tags', eventController.getRecords);
 
 // dataRouter.put('/', eventController.updateRecord);
 
