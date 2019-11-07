@@ -20,6 +20,7 @@ class Reference extends Component {
                     <div>{this.props.description}</div>
                 <label>Tags:</label>
                     <div>{this.props.tags}</div>
+                <button className='deleteButton'>Delete</button>
             </div>
         )
     }
@@ -28,3 +29,5 @@ class Reference extends Component {
 }
 
 export default Reference
+
+// onClick={() => this.props.deleteFunction(event, this.props.url)}

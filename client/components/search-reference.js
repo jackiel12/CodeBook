@@ -29,6 +29,27 @@ class searchReference extends Component {
     //     })
     // }
 
+    // deleteRecord (event,url) {
+    //     event.preventDefault();
+
+    //     //grab the url from the reference component
+    //     //pass that into the request body so that back end can grab it and find the record
+
+    //     fetch('/data/delete', {
+    //         method: 'DELETE',
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         },
+    //         body: url,
+    //     })
+    //     .then(res=> res.json())
+    //     .then(data => console.log(data))
+    //     .catch((err,res) =>  {
+    //         console.log('there was a big error: ',err)
+    //     })
+
+    // }
+
     onSubmit(event) {
         event.preventDefault();
         //make a fetch with type get to search for items by tag
@@ -42,8 +63,9 @@ class searchReference extends Component {
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => res.json())
-        .then(data => {
+        .then(res => 
+            res.json())
+        .then(data  => {
             console.log('response from mongodb', data)
             this.setState({
                 results: data
@@ -64,7 +86,7 @@ class searchReference extends Component {
 
         for(let i = 0;i < this.state.results.length;i++) {
             let currentObj = this.state.results[i]
-            results.push(<Reference name={currentObj.name} tags={currentObj.tags.join()} description={currentObj.description} url={currentObj.url}/>)
+            results.push(<Reference name={currentObj.name} tags={currentObj.tags.join()} description={currentObj.description} url={currentObj.url} />)
         }
 
         return(
@@ -90,3 +112,5 @@ class searchReference extends Component {
 }
 
 export default searchReference;
+
+//deleteFunction={this.deleteRecord}

@@ -14,10 +14,10 @@ class Navbar extends Component {
             <nav>
                 <ul>
                     <li>
-                    <Link to='/add'>Add a Reference</Link> />
+                    <Link to='/add'>Add a Reference</Link> 
                     </li>
                     <li>
-                    <Link to='/search'>Search for a Reference</Link>/>
+                    <Link to='/search'>Search for a Reference</Link>
                     </li>
                 
                 </ul>

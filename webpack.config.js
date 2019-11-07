@@ -8,6 +8,7 @@ module.exports = {
     },
     mode: 'development',
     devServer: {
+      port: 9000,
       publicPath: '/build/',
       proxy: {
         '/data': 'http://localhost:3000'

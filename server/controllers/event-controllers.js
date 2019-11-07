@@ -28,7 +28,7 @@ const eventController = {
     deleteRecord(req, res) {
         //takes a request, finds the data and removes it from the db
         Reference.findOneAndDelete({url: req.body.url},function(err, reference) {
-            if (err) res.status(500).json({error: err})
+            if (err) res.status(404).json({error: err})
             res.json({sucess: true, msg: `deleted ${reference}`});
         })
     },

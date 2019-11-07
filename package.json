@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "NODE_ENV=production webpack",
+    "build": "webpack",
     "dev": "webpack-dev-server --open&nodemon server/server.js",
-    "start": "node server/server.js"
+    "start": "nodemon server/server.js"
   },
   "keywords": [
     "solo",
@@ -17,7 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^4.1.2",
     "express": "^4.17.1",
+    "lightningcomm": "^0.1.0",
     "mongodb": "^3.3.0",
     "mongoose": "^5.6.9",
     "react": "^16.9.0",
@@ -25,7 +27,8 @@
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "webpack": "^4.39.2",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.0",
+    "ws": "^7.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

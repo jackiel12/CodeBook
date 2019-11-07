@@ -6,3 +6,8 @@ div {
     border: 1px solid black;
     max-width: 600px;
 }
+
+.deleteButton:hover {
+    background-color: red;
+    color: white
+}

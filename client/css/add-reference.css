@@ -1,3 +1,15 @@
 .formContainer {
     display: block;
 }
+
+.addRefButton:hover {
+    background-color: dodgerblue;
+    color: white;
+    font-weight: bold
+}
+
+input[type=text]:hover {
+    background-color: dodgerblue;
+    color: white;
+    font-weight: bold
+}

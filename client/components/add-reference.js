@@ -98,7 +98,7 @@ class addReference extends Component {
                         <input type='text' value={this.state.tags} onChange={this.onChangeTags}/>
                     </label>
                     <div>
-                        <input type='submit' value='Add Reference'/>
+                        <input className ='addRefButton' type='submit' value='Add Reference'/>
                     </div>
                 </form>
             </div>

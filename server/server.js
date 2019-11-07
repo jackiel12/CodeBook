@@ -3,6 +3,8 @@ const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const lightningcomm = require('lightningcomm')
+const lc = lightningcomm(app);
 
 const eventController = require('./controllers/event-controllers.js')
 
@@ -39,14 +41,14 @@ app.use('/data', dataRouter);
 
 
 
-// statically serve everything in the build folder on the route '/build'
-    
-app.use('/build', express.static(path.join(__dirname, '../build')));
 // serve index.html on the route '/'
 app.get('/', (req, res) => {
-    
-    res.status(200).sendFile(path.join(__dirname, '../index.html'));
+  
+  res.status(200).sendFile(path.join(__dirname, '../index.html'));
 });
+// statically serve everything in the build folder on the route '/build'
+    
+app.use('/build', express.static(path.resolve(__dirname, '../build')));
 
 
 app.use(function (err, req, res, next) {
