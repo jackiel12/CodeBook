@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-// mongoose.connect('mongodb://localhost/mongodb-jlsp');
-// mongoose.connection.once('open',() => {
-//     console.log('connected with mongodb-jlsp');
-// })
 
-// mongoose.connect('mongodb://127.0.0.1:27017/mongodb-jlsp',{useNewUrlParser: true})
-// mongoose.connection.once('open', () => {
-//     console.log('connected to DB mongodb-jlsp')
-// })
+const myURI = "mongodb+srv://jackie_lin128:yRZFzbpz7gl5XTwc@cluster0-0ee2u.mongodb.net/CodeBook"
+
+const URI = process.env.MONGO_URI || myURI;
+
+mongoose.connect(URI,{
+    useNewUrlParser: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true
+})
+
+mongoose.connection.on('connected', () => {
+    console.log('Connected to DB Mongoose')
+})
 
 const ReferenceSchema = new Schema ({
     name: {type: String, required: true},
