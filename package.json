@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack",
-    "dev": "webpack-dev-server --open&nodemon server/server.js",
-    "start": "nodemon server/server.js"
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack-dev-server --open",
+    "start": "NODE_ENV=production node server/server.js"
   },
   "keywords": [
     "solo",

@@ -6,7 +6,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'build')
     },
-    mode: 'development',
+    mode: process.env.NODE_ENV,
     devServer: {
       port: 9000,
       publicPath: '/build/',
