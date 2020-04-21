@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Reference from './reference.js'
 
 class addReference extends Component {
 
@@ -9,7 +10,8 @@ class addReference extends Component {
             name: '',
             url: '',
             description: '',
-            tags:''
+            tags:'',
+            existingRefs: []
         };
 
         this.onChangeName = this.onChangeName.bind(this);        
@@ -17,6 +19,8 @@ class addReference extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeTags = this.onChangeTags.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.getExistingReferences = this.getExistingReferences.bind(this);
+        this.displayReferences = this.displayReferences.bind(this);
     }
 
     onChangeName(event) {
@@ -53,8 +57,6 @@ class addReference extends Component {
             tags: this.state.tags
         }
 
-        console.log(reference);
-
         //fetch with type post
         fetch('/data/add',{
             method: 'POST',
@@ -62,7 +64,6 @@ class addReference extends Component {
             headers: {
                 'Content-Type': 'application/json'
             }
-
         })
         .then(res => {
             console.log(res);
@@ -70,8 +71,36 @@ class addReference extends Component {
         .catch((err) => {
             if(err) console.log(this.state);
         })
+    }
 
+    getExistingReferences() {
+
+        fetch('/data/getRecords', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({existingRefs: data})
+        })
+        .catch((err) => {
+            if(err) console.log(err);
+        })
+
+    }
+
+    displayReferences() {
+        let refList = this.state.existingRefs.map((el)=> {
+            return <Reference key={el._id.toString()} name={el.name} tags={el.tags.join()} description={el.description} url={el.url}/>
+        })
         
+        return refList;
+    }
+
+    componentDidMount() {
+        this.getExistingReferences();
     }
 
     render() {
@@ -101,6 +130,9 @@ class addReference extends Component {
                         <input className ='addRefButton' type='submit' value='Add Reference'/>
                     </div>
                 </form>
+                <br/>
+                <h3>Saved References</h3>
+                <div>{this.displayReferences()}</div>
             </div>
         )
     }
