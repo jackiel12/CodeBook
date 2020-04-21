@@ -4,7 +4,7 @@ const Reference = require('../models/ref-model.js');
 const eventController = {
     //make a function to add the data to the db
     createRecord(req, res) {
-        console.log('req.body',req.body);
+        // console.log('req.body',req.body);
         const reference = new Reference ({
             name: req.body.name,
             url: req.body.url,
@@ -37,7 +37,7 @@ const eventController = {
     getRecords(req, res, next) {
         let reqTags = req.params.tags.split(',')
         let resultArr = [];
-        console.log('req.paramssss',req.params)
+        // console.log('req.params',req.params)
         Reference.find({tags: { $in: reqTags} }, (err, cursor) => {
             if (err) res.status(404)
             else {
