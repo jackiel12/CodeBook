@@ -66,15 +66,15 @@ class searchReference extends Component {
         .then(res => 
             res.json())
         .then(data  => {
-            console.log('response from mongodb', data)
+            //console.log('response from mongodb', data)
             this.setState({
                 results: data
             })
 
-            console.log('this.state.resultssssss:',this.state.results)
+            //console.log('this.state.results:',this.state.results)
         })
         .catch((err, res)=> {
-            console.log('There was an ERROR getting the data!!! err:', err)
+            console.log('There was an ERROR getting the data. err:', err)
             console.log('response from db',res)
         })
 
@@ -86,7 +86,7 @@ class searchReference extends Component {
 
         for(let i = 0;i < this.state.results.length;i++) {
             let currentObj = this.state.results[i]
-            results.push(<Reference name={currentObj.name} tags={currentObj.tags.join()} description={currentObj.description} url={currentObj.url} />)
+            results.push(<Reference key={currentObj._id.toString()} name={currentObj.name} tags={currentObj.tags.join()} description={currentObj.description} url={currentObj.url} />)
         }
 
         return(
