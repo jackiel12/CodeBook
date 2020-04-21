@@ -2,26 +2,13 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const lightningcomm = require('lightningcomm')
-const lc = lightningcomm(app);
 
 const eventController = require('./controllers/event-controllers.js')
 
-const PORT = 3000;
-
-mongoose.connect('mongodb://127.0.0.1:27017/mongodb-jlsp',{useNewUrlParser: true})
-mongoose.connection.once('open', () => {
-    console.log('connected to DB mongodb-jlsp')
-})
-
+const PORT = process.env.PORT || 3434;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     next();
-//   });
 
 //use router to redirect requests to appropriate functionality
 const dataRouter = express.Router();
@@ -33,22 +20,15 @@ dataRouter.post('/add', eventController.createRecord);
 //set up route to fetch data by keyword
 dataRouter.get('/search/:tags', eventController.getRecords);
 
-// dataRouter.put('/', eventController.updateRecord);
-
 dataRouter.delete('/delete', eventController.deleteRecord);
 
 app.use('/data', dataRouter);
 
-
-
-// serve index.html on the route '/'
-app.get('/', (req, res) => {
-  
-  res.status(200).sendFile(path.join(__dirname, '../index.html'));
-});
-// statically serve everything in the build folder on the route '/build'
-    
-app.use('/build', express.static(path.resolve(__dirname, '../build')));
+if(process.env.NODE_ENV === 'production') {
+  app.use('/', express.static(path.resolve(__dirname, '../')));
+  //serve the bundle from the dist folder
+  app.use('/build', express.static(path.resolve(__dirname, '../build')));
+}
 
 
 app.use(function (err, req, res, next) {
