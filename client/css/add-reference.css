@@ -1,5 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+.add-reference-container {
+    border: 1px solid black;
+    border-radius: 5px;
+    max-width: 70%;
+    height: 100%;
+    margin: auto;
+    padding: 20px;
+}
+
 .formContainer {
-    display: block;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .addRefButton:hover {
@@ -8,8 +24,13 @@
     font-weight: bold
 }
 
-input[type=text]:hover {
-    background-color: dodgerblue;
-    color: white;
-    font-weight: bold
+.add-form-input {
+    margin-left: 5px;
+}
+
+.description-box {
+    min-width: 20%;
+    min-height: 4em;
+    overflow: scroll;
+    
 }

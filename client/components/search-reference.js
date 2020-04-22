@@ -14,8 +14,9 @@ class searchReference extends Component {
 
         this.onChangeSearchVal = this.onChangeSearchVal.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-        // this.presentResults = this.presentResults.bind(this)
-    }
+        this.renderExistingReferences = this.renderExistingReferences.bind(this)
+        this.getExistingReferences = this.getExistingReferences.bind(this)
+        }
 
     onChangeSearchVal (event) {
         this.setState({
@@ -23,37 +24,26 @@ class searchReference extends Component {
         })
     }
 
-    // presentResults (res) {
-    //     this.setState({
-    //         results: res //should be an array of objects
-    //     })
-    // }
+    getExistingReferences() {
 
-    // deleteRecord (event,url) {
-    //     event.preventDefault();
+        fetch('/data/getRecords', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            this.setState({results: [...data]})
+        })
+        .catch((err) => {
+            if(err) console.log(err);
+        })
 
-    //     //grab the url from the reference component
-    //     //pass that into the request body so that back end can grab it and find the record
-
-    //     fetch('/data/delete', {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: url,
-    //     })
-    //     .then(res=> res.json())
-    //     .then(data => console.log(data))
-    //     .catch((err,res) =>  {
-    //         console.log('there was a big error: ',err)
-    //     })
-
-    // }
+    }
 
     onSubmit(event) {
         event.preventDefault();
-        //make a fetch with type get to search for items by tag
-
 
         const tags = this.state.searchVal
 
@@ -66,12 +56,10 @@ class searchReference extends Component {
         .then(res => 
             res.json())
         .then(data  => {
-            //console.log('response from mongodb', data)
+            console.log('response from mongodb', data)
             this.setState({
-                results: data
+                results: [...data]
             })
-
-            //console.log('this.state.results:',this.state.results)
         })
         .catch((err, res)=> {
             console.log('There was an ERROR getting the data. err:', err)
@@ -80,29 +68,46 @@ class searchReference extends Component {
 
     }
 
+    renderExistingReferences() {
+        const currentRefs = [...this.state.results]
+
+        let refList = currentRefs.map((el) => {
+            return <Reference key={el._id.toString()} 
+            id={el._id} 
+            name={el.name} 
+            tags={el.tags.join()} 
+            description={el.description} 
+            url={el.url} 
+            refresh={this.getExistingReferences}/>
+        })
+
+        return refList;
+    }
+
+    componentDidMount() {
+        this.getExistingReferences()
+    }
+
     render() {
 
-        const results = []
-
-        for(let i = 0;i < this.state.results.length;i++) {
-            let currentObj = this.state.results[i]
-            results.push(<Reference key={currentObj._id.toString()} name={currentObj.name} tags={currentObj.tags.join()} description={currentObj.description} url={currentObj.url} />)
-        }
-
         return(
-            <div>
+            <div className="search-reference-container">
                 <form onSubmit={this.onSubmit}>
                     <label>
                         Search by Tag:
-                        <input type='text' value={this.state.searchVal} onChange={this.onChangeSearchVal}/>
+                        <input className="search-box" type='text' value={this.state.searchVal} onChange={this.onChangeSearchVal}/>
                     </label>
+                    <br/>
+                    <br/>
                     <div>
                         <input type='submit' value='Search'/>
                     </div>
                 </form>
-
+                <br/>
+                <h3>References</h3>
+                <br/>
                 <div>
-                    {results}
+                    {this.renderExistingReferences()}
                 </div>
 
             </div>

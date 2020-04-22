@@ -2,9 +2,19 @@ div {
     box-sizing: border-box;
 }
 
-.container {
+.reference-container{
     border: 1px solid black;
+    border-radius: 4px;
     max-width: 600px;
+    margin-bottom: 20px;
+}
+
+.ref-name-container {
+    border-bottom: 1px solid black;
+    height: 2em;
+}
+.ref-info-container {
+    padding: 10px;
 }
 
 .deleteButton:hover {

@@ -11,9 +11,15 @@ module.exports = {
       port: 9000,
       publicPath: '/build/',
       proxy: {
-        '/data': 'http://localhost:3000'
+        '/data/**': {
+          target: 'http://127.0.0.1:3000',
+          changeOrigin: true,
+          secure: false
+        } ,
+        
       }
     },
+    devtool: "inline-source-map",
     module: {
         rules: [
           {

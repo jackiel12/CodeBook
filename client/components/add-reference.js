@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Reference from './reference.js'
+import '../css/add-reference.css'
 
 class addReference extends Component {
 
@@ -66,10 +67,13 @@ class addReference extends Component {
             }
         })
         .then(res => {
-            console.log(res);
+            res.json()
+        })
+        .then(() => {
+            this.getExistingReferences()
         })
         .catch((err) => {
-            if(err) console.log(this.state);
+            if(err) console.log('there was an error');
         })
     }
 
@@ -83,7 +87,7 @@ class addReference extends Component {
         })
         .then(res => res.json())
         .then(data => {
-            this.setState({existingRefs: data})
+            this.setState({existingRefs: [...data]})
         })
         .catch((err) => {
             if(err) console.log(err);
@@ -92,8 +96,15 @@ class addReference extends Component {
     }
 
     displayReferences() {
-        let refList = this.state.existingRefs.map((el)=> {
-            return <Reference key={el._id.toString()} name={el.name} tags={el.tags.join()} description={el.description} url={el.url}/>
+        let currentRefs = [...this.state.existingRefs]
+
+        let refList = currentRefs.map((el)=> {
+            return <Reference key={el._id.toString()} 
+            id={el._id} name={el.name} 
+            tags={el.tags.join()} 
+            description={el.description} 
+            url={el.url}
+            refresh={this.getExistingReferences}/>
         })
         
         return refList;
@@ -107,32 +118,37 @@ class addReference extends Component {
         //create a function here that adds different references to an array to display with returned information from the db
 
         return (
-            <div>
-                <h3>Add a Reference</h3>
-                <form className='formContainer' onSubmit={this.onSubmit}>
-                    <label>
-                        Name: 
-                        <input type='text' value={this.state.name} onChange={this.onChangeName}/>
-                    </label>
-                    <label>
-                        URL: 
-                        <input type='text' value={this.state.url} onChange={this.onChangeUrl}/>
-                    </label>
-                    <label>
-                        Description: 
-                        <input type='text' value={this.state.description} onChange={this.onChangeDescription}/>
-                    </label>
-                    <label>
-                        Tags: 
-                        <input type='text' value={this.state.tags} onChange={this.onChangeTags}/>
-                    </label>
-                    <div>
-                        <input className ='addRefButton' type='submit' value='Add Reference'/>
-                    </div>
-                </form>
+            <div className="add-reference-container">
+                <div className="add-form">
+                    <h3>Add a Reference</h3>
+                    <form className='formContainer' onSubmit={this.onSubmit}>
+                        <label>
+                            Name: 
+                            <input className="add-form-input" type='text' value={this.state.name} onChange={this.onChangeName}/>
+                        </label>
+                        <label>
+                            URL: 
+                            <input className="add-form-input" type='text' value={this.state.url} onChange={this.onChangeUrl}/>
+                        </label>
+                        <label>
+                            Description: 
+                            <textarea className="add-form-input description-box" wrap="soft" name='text' value={this.state.description} onChange={this.onChangeDescription}/>
+                        </label>
+                        <label>
+                            Tags: 
+                            <input className="add-form-input" type='text' value={this.state.tags} onChange={this.onChangeTags}/>
+                        </label>
+                        <div>
+                            <input className ='addRefButton' type='submit' value='Add Reference'/>
+                        </div>
+                    </form>
+                </div>
                 <br/>
-                <h3>Saved References</h3>
-                <div>{this.displayReferences()}</div>
+                <div className="saved-reference-container">
+                    <h3>Saved References</h3>
+                    <br/>
+                    <div>{this.displayReferences()}</div>
+                </div>
             </div>
         )
     }
